@@ -5,8 +5,13 @@ class BankAccountType extends Model {
     super.init(
       {
         id: {
-          type: DataTypes.STRING,
+          type: DataTypes.INTEGER,
+          autoIncrement: true,
           primaryKey: true,
+        },
+        type: {
+          type: DataTypes.STRING,
+          allowNull: false,
         },
         name: {
           type: DataTypes.STRING,
@@ -25,7 +30,7 @@ class BankAccountType extends Model {
     this.belongsTo(models.Bank, {
       foreignKey: { name: "bank_id", allowNull: false },
     });
-    this.belongsTo(models.Beneficiary, {
+    this.hasMany(models.Beneficiary, {
       foreignKey: { name: "bank_account_type_id", allowNull: false },
     });
   }

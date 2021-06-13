@@ -4,8 +4,8 @@
   "description": "An API to manage beneficiary bank details",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "test": "jest tests/"
+    "start": "node src/server.js",
+    "test": "jest"
   },
   "author": "Tiago Valdrich",
   "license": "ISC",
@@ -16,5 +16,9 @@
     "mysql2": "2.2.5",
     "sequelize": "6.6.2",
     "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "jest": "27.0.4",
+    "supertest": "6.1.3"
   }
 }

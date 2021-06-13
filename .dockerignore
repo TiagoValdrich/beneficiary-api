@@ -1,0 +1,7 @@
+.vscode
+node_modules
+tests
+.env*
+.gitignore
+.nvmrc
+README.md

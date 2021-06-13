@@ -7,7 +7,7 @@ class Database {
     this.instance = null;
   }
 
-  async createInstance() {
+  async createInstance(dropBeforeSync = false) {
     this.instance = new Sequelize(
       process.env.DB_NAME,
       process.env.DB_USER,
@@ -21,6 +21,11 @@ class Database {
 
     await this._loadModels();
     await this._makeAssociations();
+
+    if (dropBeforeSync) {
+      await this.instance.dropAllSchemas();
+    }
+
     await this.instance.sync();
 
     return this.instance;
@@ -68,6 +73,10 @@ class Database {
         reject(err);
       }
     });
+  }
+
+  async close() {
+    await this.instance.close();
   }
 }
 

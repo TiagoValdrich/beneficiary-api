@@ -74,10 +74,10 @@ class Beneficiary extends Model {
   }
 
   static associate(models) {
-    this.hasOne(models.Bank, {
+    this.belongsTo(models.Bank, {
       foreignKey: { name: "bank_id", allowNull: false },
     });
-    this.hasOne(models.BankAccountType, {
+    this.belongsTo(models.BankAccountType, {
       foreignKey: { name: "bank_account_type_id", allowNull: false },
     });
   }

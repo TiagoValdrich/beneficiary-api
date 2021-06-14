@@ -1,4 +1,7 @@
+const { Op } = require("sequelize");
+
 const Bank = require("../models/bank");
+const BankAccountType = require("../models/bankAccountType");
 
 module.exports = {
   getBanks: async (req, res) => {
@@ -24,6 +27,29 @@ module.exports = {
       return res.status(200).json(bank);
     } catch (e) {
       console.error("[BANK] Unexpected error fetching bank", e);
+      return res.sendStatus(500);
+    }
+  },
+  getAccountTypes: async (req, res) => {
+    try {
+      const bankId = req.params?.id;
+
+      const bank = await Bank.findByPk(bankId, {
+        attributes: ["id", "name"],
+        include: {
+          model: BankAccountType,
+          required: false,
+          attributes: ["id", "type", "name"],
+        },
+      });
+
+      if (!bank) {
+        return res.sendStatus(404);
+      }
+
+      return res.status(200).json(bank.BankAccountTypes || []);
+    } catch (e) {
+      console.error("[BANK] Unexpected error fetching bank account types", e);
       return res.sendStatus(500);
     }
   },

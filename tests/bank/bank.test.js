@@ -17,7 +17,7 @@ beforeAll(async () => {
 }, 10000);
 
 describe("Testing Bank routes", () => {
-  test("GET nonexistent bank, should return status 404", async () => {
+  test("Get a nonexistent bank, should return status 404", async () => {
     const resp = await supertest(app)
       .get("/bank/nope")
       .set("Authorization", "Bearer test_token");

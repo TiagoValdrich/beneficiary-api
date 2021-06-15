@@ -16,7 +16,7 @@ module.exports = {
   },
   getBank: async (req, res) => {
     try {
-      const bankId = req.params?.id;
+      const bankId = req.params.id;
 
       const bank = await Bank.findByPk(bankId, { attributes: ["id", "name"] });
 
@@ -32,7 +32,7 @@ module.exports = {
   },
   getAccountTypes: async (req, res) => {
     try {
-      const bankId = req.params?.id;
+      const bankId = req.params.id;
 
       const bank = await Bank.findByPk(bankId, {
         attributes: ["id", "name"],
@@ -87,7 +87,7 @@ module.exports = {
   },
   updateBank: async (req, res) => {
     try {
-      const bankId = req.params?.id;
+      const bankId = req.params.id;
       const body = req.body;
 
       const bank = await Bank.findByPk(bankId);
@@ -108,7 +108,7 @@ module.exports = {
   },
   deleteBank: async (req, res) => {
     try {
-      const bankId = req.params?.id;
+      const bankId = req.params.id;
 
       const bank = await Bank.findByPk(bankId);
 

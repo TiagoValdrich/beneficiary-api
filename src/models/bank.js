@@ -28,10 +28,10 @@ class Bank extends Model {
 
   static associate(models) {
     this.hasMany(models.BankAccountType, {
-      foreignKey: { name: "bank_id", allowNull: false },
+      foreignKey: { name: "bankId", allowNull: false },
     });
     this.hasMany(models.Beneficiary, {
-      foreignKey: { name: "bank_id", allowNull: false },
+      foreignKey: { name: "bankId", allowNull: false },
     });
   }
 }

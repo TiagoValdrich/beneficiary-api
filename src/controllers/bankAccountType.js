@@ -25,7 +25,7 @@ module.exports = {
   },
   getBankAccountType: async (req, res) => {
     try {
-      const bankAccountTypeId = req.params?.id;
+      const bankAccountTypeId = req.params.id;
 
       const bankAccountType = await BankAccountType.findByPk(
         bankAccountTypeId,
@@ -54,7 +54,7 @@ module.exports = {
   createBankAccountType: async (req, res) => {
     try {
       const body = req.body;
-      const reqFields = ["type", "name", "bank_id"];
+      const reqFields = ["type", "name", "bankId"];
 
       if (!body) {
         return res.status(400).send("Missing body parameters");
@@ -68,7 +68,7 @@ module.exports = {
         }
       }
 
-      const bank = await Bank.findByPk(body.bank_id);
+      const bank = await Bank.findByPk(body.bankId);
 
       if (!bank) {
         return res.sendStatus(404);
@@ -88,7 +88,7 @@ module.exports = {
 
       const saved = await BankAccountType.create({
         type: body.type,
-        bank_id: body.bank_id,
+        bankId: body.bankId,
         name: body.name,
       });
 
@@ -103,7 +103,7 @@ module.exports = {
   },
   updateBankAccountType: async (req, res) => {
     try {
-      const bankAccountTypeId = req.params?.id;
+      const bankAccountTypeId = req.params.id;
       const body = req.body;
 
       const bankAccountType = await BankAccountType.findByPk(bankAccountTypeId);
@@ -112,8 +112,8 @@ module.exports = {
         return res.sendStatus(404);
       }
 
-      if (body && body.bank_id) {
-        const bank = await Bank.findByPk(body.bank_id);
+      if (body && body.bankId) {
+        const bank = await Bank.findByPk(body.bankId);
 
         if (!bank) {
           return res.sendStatus(404);
@@ -135,7 +135,7 @@ module.exports = {
   },
   deleteBankAccountType: async (req, res) => {
     try {
-      const bankAccountTypeId = req.params?.id;
+      const bankAccountTypeId = req.params.id;
 
       const bankAccountType = await BankAccountType.findByPk(bankAccountTypeId);
 

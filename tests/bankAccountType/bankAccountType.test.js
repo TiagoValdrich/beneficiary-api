@@ -12,7 +12,7 @@ const bankObject = {
 const bankAccountTypeObject = {
   id: "",
   type: "CONTA_CORRENTE",
-  bank_id: bankObject.id,
+  bankId: bankObject.id,
   name: "Conta Corrente",
 };
 
@@ -78,7 +78,7 @@ describe("Testing bank account types routes", () => {
     resp = await supertest(app)
       .post("/bankAccountType")
       .set("Authorization", "Bearer test_token")
-      .send({ bank_id: "BANK" });
+      .send({ bankId: "BANK" });
     expect(resp.statusCode).toBe(400);
   });
 
@@ -124,7 +124,7 @@ describe("Testing bank account types routes", () => {
     let resp = await supertest(app)
       .patch(`/bankAccountType/${bankAccountTypeObject.id}`)
       .set("Authorization", "Bearer test_token")
-      .send({ bank_id: "NOPE" });
+      .send({ bankId: "NOPE" });
 
     expect(resp.statusCode).toBe(404);
   });

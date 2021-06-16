@@ -25,12 +25,37 @@ describe("Testing Bank routes", () => {
     expect(resp.statusCode).toBe(404);
   });
 
+  test("Get list of banks without having registered any, should return status 200 with a empty list", async () => {
+    const resp = await supertest(app)
+      .get("/banks")
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toStrictEqual([]);
+  });
+
+  test("Update bank that isn't registered, should return status 404", async () => {
+    const resp = await supertest(app)
+      .patch("/bank/nope")
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+    expect(resp.statusCode).toBe(404);
+  });
+
   test("Create valid bank, should return status 200", async () => {
     const resp = await supertest(app)
       .post("/bank")
       .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
       .send(bankObject);
     expect(resp.statusCode).toBe(201);
+  });
+
+  test("Get bank account types without register any, should return status 200 with an empty list", async () => {
+    const resp = await supertest(app)
+      .get(`/bank/${bankObject.id}/accountTypes`)
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toStrictEqual([]);
   });
 
   test("Create repeated bank, should return status 400", async () => {

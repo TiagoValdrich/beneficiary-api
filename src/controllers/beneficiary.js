@@ -49,7 +49,9 @@ module.exports = {
     try {
       const id = req.params.id;
 
-      const beneficiary = await Beneficiary.findByPk(id);
+      const beneficiary = await Beneficiary.findByPk(id, {
+        include: [{ model: Bank }, { model: BankAccountType }],
+      });
 
       if (!beneficiary) {
         return res.sendStatus(404);
@@ -76,7 +78,7 @@ module.exports = {
         "accountNumber",
         "accountDigit",
         "bankId",
-        "bankAccounTypeId",
+        "bankAccountTypeId",
       ];
 
       for (const reqField of reqFields) {
@@ -102,17 +104,17 @@ module.exports = {
         return res.status(404).send("Bank not found");
       }
 
-      const bankAccounType = await BankAccountType.findByPk(
-        body.bankAccounTypeId
+      const bankAccountType = await BankAccountType.findByPk(
+        body.bankAccountTypeId
       );
 
-      if (!bankAccounType) {
+      if (!bankAccountType) {
         return res.status(404).send("Bank account type not found!");
       }
 
       const validationResult = validationTools.validateBankData({
         ...body,
-        accountType: bankAccounType.type,
+        accountType: bankAccountType.type,
       });
 
       if (!validationResult.valid) {
@@ -143,10 +145,19 @@ module.exports = {
         return res.sendStatus(404);
       }
 
-      if (beneficiary.status == beneficiaryStatus.VALIDATED) {
-        if (body.email && body.email != beneficiary.email) {
-          await beneficiary.update({ email: body.email });
+      if (body.status) {
+        if (!Object.values(beneficiaryStatus).includes(body.status)) {
+          return res.status(400).send("Invalid status");
         }
+
+        beneficiary.status = body.status;
+      }
+
+      if (beneficiary.status == beneficiaryStatus.VALIDATED) {
+        await beneficiary.update({
+          email: body.email || beneficiary.email,
+          status: body.status || beneficiary.status,
+        });
 
         return res.sendStatus(200);
       }
@@ -155,14 +166,6 @@ module.exports = {
         if (body[notValidatedField]) {
           beneficiary[notValidatedField] = body[notValidatedField];
         }
-      }
-
-      if (body.status) {
-        if (!Object.values(beneficiaryStatus).includes(body.status)) {
-          return res.status(400).send("Invalid status");
-        }
-
-        beneficiary.status = body.status;
       }
 
       if (
@@ -192,6 +195,8 @@ module.exports = {
         beneficiary.document = body.document;
       }
 
+      let newBankAccountType;
+
       if (body.bankId) {
         const bank = await Bank.findByPk(body.bankId);
 
@@ -202,19 +207,24 @@ module.exports = {
         beneficiary.bankId = body.bankId;
       }
 
-      let newBankAccountType;
-
-      if (body.bankAccounTypeId) {
-        const bankAccounType = await BankAccountType.findByPk(
-          body.bankAccounTypeId
+      if (body.bankAccountTypeId) {
+        const bankAccountType = await BankAccountType.findByPk(
+          body.bankAccountTypeId,
+          {
+            where: {
+              bankId: {
+                [Op.eq]: body.bankId || beneficiary.bankId,
+              },
+            },
+          }
         );
 
-        if (!bankAccounType) {
+        if (!bankAccountType) {
           return res.status(404).send("Bank account type not found");
         }
 
-        newBankAccountType = bankAccounType;
-        beneficiary.bankAccounTypeId = body.bankAccounTypeId;
+        newBankAccountType = bankAccountType;
+        beneficiary.bankAccountTypeId = body.bankAccountTypeId;
       }
 
       const bankDetails = {

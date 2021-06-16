@@ -45,7 +45,7 @@ module.exports = {
         return res.sendStatus(404);
       }
 
-      return res.status(200).json(bank.BankAccountTypes || []);
+      return res.status(200).json(bank.BankAccountTypes);
     } catch (e) {
       console.error("[BANK] Unexpected error fetching bank account types", e);
       return res.sendStatus(500);

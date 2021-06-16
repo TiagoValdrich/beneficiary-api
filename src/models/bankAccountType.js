@@ -31,7 +31,7 @@ class BankAccountType extends Model {
       foreignKey: { name: "bankId", allowNull: false },
     });
     this.hasMany(models.Beneficiary, {
-      foreignKey: { name: "bankAccounTypeId", allowNull: false },
+      foreignKey: { name: "bankAccountTypeId", allowNull: false },
     });
   }
 }

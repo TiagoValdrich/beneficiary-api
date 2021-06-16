@@ -9,6 +9,11 @@ const bankObject = {
   name: "Banco do Brasil (001)",
 };
 
+const anotherBankObject = {
+  id: "RANDOM_BANK",
+  name: "Random bank (667)",
+};
+
 const bankAccountTypeObject = {
   id: "",
   type: "CONTA_CORRENTE",
@@ -28,6 +33,14 @@ describe("Testing bank account types routes", () => {
     const resp = await supertest(app)
       .get("/bankAccountType/nope")
       .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+    expect(resp.statusCode).toBe(404);
+  });
+
+  test("Update nonexistent bank account type, should return status 404", async () => {
+    const resp = await supertest(app)
+      .patch("/bankAccountType/nope")
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+      .send({});
     expect(resp.statusCode).toBe(404);
   });
 
@@ -104,12 +117,12 @@ describe("Testing bank account types routes", () => {
   });
 
   test("Updating bank account type name, should return status 200 and modify it's name on database", async () => {
-    const newBankAccounTypeName = "Conta Corrente Nova";
+    const newbankAccountTypeName = "Conta Corrente Nova";
 
     let resp = await supertest(app)
       .patch(`/bankAccountType/${bankAccountTypeObject.id}`)
       .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
-      .send({ name: newBankAccounTypeName });
+      .send({ name: newbankAccountTypeName });
 
     expect(resp.statusCode).toBe(200);
 
@@ -118,7 +131,32 @@ describe("Testing bank account types routes", () => {
       .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
 
     expect(resp.statusCode).toBe(200);
-    expect(resp.body.name).toBe(newBankAccounTypeName);
+    expect(resp.body.name).toBe(newbankAccountTypeName);
+  });
+
+  test("Updating bank account type with invalid bankId should return status 404", async () => {
+    const resp = await supertest(app)
+      .patch(`/bankAccountType/${bankAccountTypeObject.id}`)
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+      .send({ bankId: "nope" });
+
+    expect(resp.statusCode).toBe(404);
+  });
+
+  test("Updating bank account type with new bankId should return status 200", async () => {
+    let resp = await supertest(app)
+      .post(`/bank`)
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+      .send(anotherBankObject);
+
+    expect(resp.statusCode).toBe(201);
+
+    resp = await supertest(app)
+      .patch(`/bankAccountType/${bankAccountTypeObject.id}`)
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+      .send({ bankId: anotherBankObject.id });
+
+    expect(resp.statusCode).toBe(200);
   });
 
   test("Updating bank account type with a nonexistent bank, should return status 404", async () => {

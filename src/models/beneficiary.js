@@ -82,7 +82,7 @@ class Beneficiary extends Model {
       foreignKey: { name: "bankId", allowNull: false },
     });
     this.belongsTo(models.BankAccountType, {
-      foreignKey: { name: "bankAccounTypeId", allowNull: false },
+      foreignKey: { name: "bankAccountTypeId", allowNull: false },
     });
   }
 }

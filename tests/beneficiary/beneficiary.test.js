@@ -46,7 +46,82 @@ const baseBeneficiaryObj = {
   accountNumber: "123456",
   accountDigit: "1",
   bankId: "BANCO_DO_BRASIL",
-  bankAccounTypeId: "1",
+  bankAccountTypeId: "1",
+};
+
+const createTestBanks = async () => {
+  let resp = await supertest(app)
+    .post("/bank")
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+    .send(bancoDoBrasilObject);
+  expect(resp.statusCode).toBe(201);
+
+  resp = await supertest(app)
+    .post("/bank")
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+    .send(randomBankObject);
+  expect(resp.statusCode).toBe(201);
+};
+
+const createTestBankAccountTypes = async () => {
+  let resp = await supertest(app)
+    .post("/bankAccountType")
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+    .send(bancoDoBrasilAccountTypeObject);
+  expect(resp.statusCode).toBe(201);
+
+  bancoDoBrasilAccountTypeObject.id = resp.body.id;
+
+  resp = await supertest(app)
+    .post("/bankAccountType")
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+    .send(bancoDoBrasilWrongAccountTypeObject);
+  expect(resp.statusCode).toBe(201);
+
+  bancoDoBrasilWrongAccountTypeObject.id = resp.body.id;
+
+  resp = await supertest(app)
+    .post("/bankAccountType")
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+    .send(randomBankAccountTypeObject);
+  expect(resp.statusCode).toBe(201);
+
+  randomBankAccountTypeObject.id = resp.body.id;
+};
+
+const deleteTestBankAccountTypes = async () => {
+  let resp = await supertest(app)
+    .delete(`/bankAccountType/${bancoDoBrasilAccountTypeObject.id}`)
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+  expect(resp.statusCode).toBe(200);
+
+  bancoDoBrasilAccountTypeObject.id = "";
+
+  resp = await supertest(app)
+    .delete(`/bankAccountType/${bancoDoBrasilWrongAccountTypeObject.id}`)
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+  expect(resp.statusCode).toBe(200);
+
+  bancoDoBrasilWrongAccountTypeObject.id = "";
+
+  resp = await supertest(app)
+    .delete(`/bankAccountType/${randomBankAccountTypeObject.id}`)
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+  expect(resp.statusCode).toBe(200);
+
+  randomBankAccountTypeObject.id = "";
+};
+
+const deleteTestBanks = async () => {
+  let resp = await supertest(app)
+    .delete(`/bank/${bancoDoBrasilObject.id}`)
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+  expect(resp.statusCode).toBe(200);
+
+  resp = await supertest(app)
+    .delete(`/bank/${randomBankObject.id}`)
+    .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+  expect(resp.statusCode).toBe(200);
 };
 
 const getBanksToTest = () => {
@@ -76,6 +151,13 @@ describe("Testing Bank routes", () => {
       .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toStrictEqual([]);
+  });
+
+  test("Listing beneficiaries with page parameters with negative numbers should return status 400", async () => {
+    const resp = await supertest(app)
+      .get("/beneficiaries?page=-1")
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+    expect(resp.statusCode).toBe(400);
   });
 
   test("Get beneficiary id that isn't registered should return status 404", async () => {
@@ -119,7 +201,7 @@ describe("Testing Bank routes", () => {
         accountNumber: "123456",
         accountDigit: "1",
         bankId: "BANCO_DO_BRASIL",
-        bankAccounTypeId: "1",
+        bankAccountTypeId: "1",
       });
     expect(resp.statusCode).toBe(400);
   });
@@ -156,41 +238,8 @@ describe("Testing Bank routes", () => {
 
   describe("Testing beneficiary with bank and bank account type registered", () => {
     beforeAll(async () => {
-      let resp = await supertest(app)
-        .post("/bank")
-        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
-        .send(bancoDoBrasilObject);
-      expect(resp.statusCode).toBe(201);
-
-      resp = await supertest(app)
-        .post("/bank")
-        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
-        .send(randomBankObject);
-      expect(resp.statusCode).toBe(201);
-
-      resp = await supertest(app)
-        .post("/bankAccountType")
-        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
-        .send(bancoDoBrasilAccountTypeObject);
-      expect(resp.statusCode).toBe(201);
-
-      bancoDoBrasilAccountTypeObject.id = resp.body.id;
-
-      resp = await supertest(app)
-        .post("/bankAccountType")
-        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
-        .send(bancoDoBrasilWrongAccountTypeObject);
-      expect(resp.statusCode).toBe(201);
-
-      bancoDoBrasilWrongAccountTypeObject.id = resp.body.id;
-
-      resp = await supertest(app)
-        .post("/bankAccountType")
-        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
-        .send(randomBankAccountTypeObject);
-      expect(resp.statusCode).toBe(201);
-
-      randomBankAccountTypeObject.id = resp.body.id;
+      await createTestBanks();
+      await createTestBankAccountTypes();
     });
 
     test("Create beneficiary with a bank id that is not registered should return status 404", async () => {
@@ -212,7 +261,7 @@ describe("Testing Bank routes", () => {
         .send({
           ...baseBeneficiaryObj,
           bankId: bancoDoBrasilObject.id,
-          bankAccounTypeId: 666999,
+          bankAccountTypeId: 666999,
         });
 
       expect(resp.statusCode).toBe(404);
@@ -235,7 +284,7 @@ describe("Testing Bank routes", () => {
 
     test("Create beneficiary with agency number exceeding max length should return status 400", async () => {
       for (const bank of getBanksToTest()) {
-        resp = await supertest(app)
+        const resp = await supertest(app)
           .post("/beneficiary")
           .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
           .send({
@@ -250,7 +299,7 @@ describe("Testing Bank routes", () => {
 
     test("Create beneficiary with agency number mixed with characters should return status 400", async () => {
       for (const bank of getBanksToTest()) {
-        resp = await supertest(app)
+        const resp = await supertest(app)
           .post("/beneficiary")
           .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
           .send({
@@ -265,7 +314,7 @@ describe("Testing Bank routes", () => {
 
     test("Create beneficiary with agency number mixed with characters should return status 400", async () => {
       for (const bank of getBanksToTest()) {
-        resp = await supertest(app)
+        const resp = await supertest(app)
           .post("/beneficiary")
           .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
           .send({
@@ -280,7 +329,7 @@ describe("Testing Bank routes", () => {
 
     test("Create beneficiary with characters on account number should return status 400", async () => {
       for (const bank of getBanksToTest()) {
-        resp = await supertest(app)
+        const resp = await supertest(app)
           .post("/beneficiary")
           .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
           .send({
@@ -292,105 +341,353 @@ describe("Testing Bank routes", () => {
         expect(resp.statusCode).toBe(400);
       }
     });
-  });
 
-  test("Create beneficiary with account number exceeding max length should return status 400", async () => {
-    for (const bank of getBanksToTest()) {
-      resp = await supertest(app)
+    test("Create beneficiary with account number exceeding max length should return status 400", async () => {
+      for (const bank of getBanksToTest()) {
+        const resp = await supertest(app)
+          .post("/beneficiary")
+          .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+          .send({
+            ...baseBeneficiaryObj,
+            ...bank,
+            accountNumber: "1237126387216",
+          });
+
+        expect(resp.statusCode).toBe(400);
+      }
+    });
+
+    test("Create beneficiary with account number mixed with characters should return status 400", async () => {
+      for (const bank of getBanksToTest()) {
+        const resp = await supertest(app)
+          .post("/beneficiary")
+          .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+          .send({
+            ...baseBeneficiaryObj,
+            ...bank,
+            accountNumber: "ab12",
+          });
+
+        expect(resp.statusCode).toBe(400);
+      }
+    });
+
+    test("Create beneficiary with account number mixed with characters should return status 400", async () => {
+      for (const bank of getBanksToTest()) {
+        const resp = await supertest(app)
+          .post("/beneficiary")
+          .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+          .send({
+            ...baseBeneficiaryObj,
+            ...bank,
+            accountNumber: "000000",
+          });
+
+        expect(resp.statusCode).toBe(400);
+      }
+    });
+
+    test("Create beneficiary with character on account digit should return status 400", async () => {
+      for (const bank of getBanksToTest()) {
+        const resp = await supertest(app)
+          .post("/beneficiary")
+          .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+          .send({
+            ...baseBeneficiaryObj,
+            ...bank,
+            accountDigit: "a",
+          });
+
+        expect(resp.statusCode).toBe(400);
+      }
+    });
+
+    test("Create beneficiary with account digit exceeding length should return status 400", async () => {
+      for (const bank of getBanksToTest()) {
+        const resp = await supertest(app)
+          .post("/beneficiary")
+          .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+          .send({
+            ...baseBeneficiaryObj,
+            ...bank,
+            accountDigit: "123",
+          });
+
+        expect(resp.statusCode).toBe(400);
+      }
+    });
+
+    test("Create beneficiary with invalid account type should return status 400", async () => {
+      const resp = await supertest(app)
         .post("/beneficiary")
         .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
         .send({
           ...baseBeneficiaryObj,
-          ...bank,
-          accountNumber: "1237126387216",
+          bankId: bancoDoBrasilWrongAccountTypeObject.bankId,
+          bankAccountTypeId: bancoDoBrasilWrongAccountTypeObject.id,
         });
 
       expect(resp.statusCode).toBe(400);
-    }
-  });
+    });
 
-  test("Create beneficiary with account number mixed with characters should return status 400", async () => {
-    for (const bank of getBanksToTest()) {
-      resp = await supertest(app)
+    test("Create beneficiary with valid data should return status 200", async () => {
+      const resp = await supertest(app)
         .post("/beneficiary")
         .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
         .send({
           ...baseBeneficiaryObj,
-          ...bank,
-          accountNumber: "ab12",
         });
 
-      expect(resp.statusCode).toBe(400);
-    }
+      expect(resp.statusCode).toBe(201);
+      expect(resp.body.id).not.toBe(null);
+      expect(typeof resp.body.id).toBe("string");
+
+      // Cleaning
+      await supertest(app)
+        .delete("/beneficiaries")
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({ ids: [resp.body.id] });
+    });
+
+    afterAll(async () => {
+      await deleteTestBankAccountTypes();
+      await deleteTestBanks();
+    });
   });
 
-  test("Create beneficiary with account number mixed with characters should return status 400", async () => {
-    for (const bank of getBanksToTest()) {
-      resp = await supertest(app)
+  describe("Testing cases for updating an existing beneficiary", () => {
+    let beneficiaryId;
+
+    beforeAll(async () => {
+      await createTestBanks();
+      await createTestBankAccountTypes();
+
+      const resp = await supertest(app)
         .post("/beneficiary")
         .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
         .send({
           ...baseBeneficiaryObj,
-          ...bank,
-          accountNumber: "000000",
+          bankId: bancoDoBrasilObject.id,
+          bankAccountTypeId: bancoDoBrasilAccountTypeObject.id,
         });
+      expect(resp.statusCode).toBe(201);
 
-      expect(resp.statusCode).toBe(400);
-    }
-  });
+      beneficiaryId = resp.body.id;
+    });
 
-  test("Create beneficiary with character on account digit should return status 400", async () => {
-    for (const bank of getBanksToTest()) {
+    test("Update beneficiary with VALIDATED status should only update it's e-mail returning status 200", async () => {
       resp = await supertest(app)
-        .post("/beneficiary")
+        .patch(`/beneficiary/${beneficiaryId}`)
         .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
         .send({
-          ...baseBeneficiaryObj,
-          ...bank,
-          accountDigit: "a",
+          status: "VALIDATED",
         });
 
-      expect(resp.statusCode).toBe(400);
-    }
-  });
+      expect(resp.status).toBe(200);
 
-  test("Create beneficiary with account digit exceeding length should return status 400", async () => {
-    for (const bank of getBanksToTest()) {
+      const newEmail = "newEmail@new.com";
+      const newName = "Teste";
+
       resp = await supertest(app)
-        .post("/beneficiary")
+        .patch(`/beneficiary/${beneficiaryId}`)
         .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
         .send({
-          ...baseBeneficiaryObj,
-          ...bank,
-          accountDigit: "123",
+          name: newName,
+          email: newEmail,
+        });
+
+      expect(resp.status).toBe(200);
+
+      resp = await supertest(app)
+        .get(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+      expect(resp.body.name).toBe(baseBeneficiaryObj.name);
+      expect(resp.body.email).toBe(newEmail);
+    });
+
+    test("Update beneficiary with invalid status should return status 400", async () => {
+      const resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          status: "NOPE",
         });
 
       expect(resp.statusCode).toBe(400);
-    }
-  });
+    });
 
-  test("Create beneficiary with invalid account type should return status 400", async () => {
-    resp = await supertest(app)
-      .post("/beneficiary")
-      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
-      .send({
-        ...baseBeneficiaryObj,
-        bankId: bancoDoBrasilWrongAccountTypeObject.bankId,
-        bankAccounTypeId: bancoDoBrasilWrongAccountTypeObject.id,
-      });
+    test("Update beneficiary with wrong document type should return status 400", async () => {
+      let resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          status: "DRAFT",
+        });
 
-    expect(resp.statusCode).toBe(400);
-  });
+      resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          name: "Valdomiro",
+          email: "Valdomiro@teste.com",
+          documentType: "CNH",
+        });
 
-  test("Create beneficiary with valid data should return status 200", async () => {
-    resp = await supertest(app)
-      .post("/beneficiary")
-      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
-      .send({
-        ...baseBeneficiaryObj,
-      });
+      expect(resp.statusCode).toBe(400);
 
-    expect(resp.statusCode).toBe(201);
+      resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          documentType: "CNH",
+          document: documentHelper.cpf.generate(),
+        });
+
+      expect(resp.statusCode).toBe(400);
+    });
+
+    test("Update beneficiary document should return status 200 and update it's document", async () => {
+      const newCpf = documentHelper.cpf.generate();
+
+      let resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          documentType: "CPF",
+          document: newCpf,
+        });
+      expect(resp.statusCode).toBe(200);
+
+      // Just to ensure that will update document with same documentType
+      resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          document: newCpf,
+        });
+      expect(resp.statusCode).toBe(200);
+
+      resp = await supertest(app)
+        .get(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+      expect(resp.statusCode).toBe(200);
+      expect(resp.body.document).toBe(newCpf);
+    });
+
+    test("Update beneficiary with wrong bank id should return status 404", async () => {
+      const resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          bankId: "ops",
+        });
+
+      expect(resp.statusCode).toBe(404);
+    });
+
+    test("Update beneficiary bank should return status 200 and update it's bank", async () => {
+      let resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          bankId: randomBankObject.id,
+          bankAccountTypeId: randomBankAccountTypeObject.id,
+        });
+      expect(resp.statusCode).toBe(200);
+
+      resp = await supertest(app)
+        .get(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+      expect(resp.statusCode).toBe(200);
+      expect(resp.body.bankId).toBe(randomBankObject.id);
+      expect(resp.body.bankAccountTypeId).toBe(randomBankAccountTypeObject.id);
+    });
+
+    test("Update beneficiary with wrong bank account type id should return status 404", async () => {
+      const resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          bankAccountTypeId: "ops",
+        });
+
+      expect(resp.statusCode).toBe(404);
+    });
+
+    test("Update beneficiary with invalid bank details like account number should return status 404", async () => {
+      const resp = await supertest(app)
+        .patch(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({
+          accountNumber: "1234567abc",
+          accountDigit: "wrong",
+        });
+
+      expect(resp.statusCode).toBe(400);
+    });
+
+    test("Search for beneficiary using list beneficiaries route", async () => {
+      const beneficiaryResp = await supertest(app)
+        .get(`/beneficiary/${beneficiaryId}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+      expect(beneficiaryResp.statusCode).toBe(200);
+
+      const currentBeneficiary = beneficiaryResp.body;
+
+      let resp = await supertest(app)
+        .get(`/beneficiaries?page=1&searchValue=${currentBeneficiary.name}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+      expect(resp.statusCode).toBe(200);
+      expect(resp.body).toHaveLength(1);
+      expect(resp.body[0].name).toBe(currentBeneficiary.name);
+
+      resp = await supertest(app)
+        .get(`/beneficiaries?page=1&searchValue=${currentBeneficiary.document}`)
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+      expect(resp.statusCode).toBe(200);
+      expect(resp.body).toHaveLength(1);
+      expect(resp.body[0].document).toBe(currentBeneficiary.document);
+
+      resp = await supertest(app)
+        .get(
+          `/beneficiaries?page=1&searchValue=${currentBeneficiary.agencyNumber}`
+        )
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+      expect(resp.statusCode).toBe(200);
+      expect(resp.body).toHaveLength(1);
+      expect(resp.body[0].agencyNumber).toBe(currentBeneficiary.agencyNumber);
+
+      resp = await supertest(app)
+        .get(
+          `/beneficiaries?page=1&searchValue=${currentBeneficiary.BankAccountType.name}`
+        )
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
+
+      expect(resp.statusCode).toBe(200);
+      expect(resp.body).toHaveLength(1);
+      expect(resp.body[0].BankAccountType.name).toBe(
+        currentBeneficiary.BankAccountType.name
+      );
+    });
+
+    afterAll(async () => {
+      const cleaning = await supertest(app)
+        .delete("/beneficiaries")
+        .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`)
+        .send({ ids: [beneficiaryId] });
+
+      expect(cleaning.statusCode).toBe(200);
+
+      await deleteTestBankAccountTypes();
+      await deleteTestBanks();
+    });
   });
 });
 

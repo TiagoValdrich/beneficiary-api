@@ -2,6 +2,46 @@
 
 A NodeJS API to manage bank details of beneficiaries.
 
+## Summary
+
+- [Beneficiary API](#beneficiary-api)
+  - [Summary](#summary)
+  - [Running the application with docker-compose (Recommended way)](#running-the-application-with-docker-compose-recommended-way)
+  - [Running the application locally](#running-the-application-locally)
+    - [Database - MySQL](#database---mysql)
+    - [Environment variables](#environment-variables)
+    - [Running the API](#running-the-api)
+  - [Testing](#testing)
+  - [Documentation (API routes)](#documentation-api-routes)
+
+## Running the application with docker-compose (Recommended way)
+
+As I didn't pushed the project image to a container registry, you'll need to build the docker image manually with the following command:
+
+```bash
+$ docker build -t beneficiary-api:test .
+```
+
+Ideally this image name must be with this name and tag, because the `docker-compose.yml` is configured to used it, but if you want to change it, feel free, but don't forget to update the image name no `docker-compose.yml`.
+
+After building the project image, now you should be ready for running the docker-compose file:
+
+```bash
+$ docker-compose up -d
+```
+
+And if you want to stop it:
+
+```bash
+$ docker-compose down
+```
+
+This compose will setup 3 containers:
+
+- MySQL container with the database `dev-test` created, running on port `3306`, accessible with the user `root` and password `123`;
+- The beneficiary API, running on port `3000`;
+- Swagger container, containing the project documentation/routes, available on port 5000;
+
 ## Running the application locally
 
 For running the application on your local environment you'll need to have NodeJS installed in order to run it. As the project was developed with version `14.16.1`, I strongly recommend using the same version to avoid possible problems.
@@ -46,34 +86,6 @@ Last but not least, you'll need to create a `.env` with the "configurations" of 
 ### Running the API
 
 Now that you have done the previous steps, just run on your terminal `npm start` and the application should start running or port `3000`, and if you didn't change the environment variable `AUTH_TOKEN`, the bearer token to authenticate in the API is `test_token`.
-
-## Running the application with docker-compose (Recommended way)
-
-As I didn't pushed the project image to a container registry, you'll need to build the docker image manually with the following command:
-
-```bash
-$ docker build -t beneficiary-api:test .
-```
-
-Ideally this image name must be with this name and tag, because the `docker-compose.yml` is configured to used it, but if you want to change it, feel free, but don't forget to update the image name no `docker-compose.yml`.
-
-After building the project image, now you should be ready for running the docker-compose file:
-
-```bash
-$ docker-compose up -d
-```
-
-And if you want to stop it:
-
-```bash
-$ docker-compose down
-```
-
-This compose will setup 3 containers:
-
-- MySQL container with the database `dev-test` created, running on port `3306`, accessible with the user `root` and password `123`;
-- The beneficiary API, running on port `3000`;
-- Swagger container, containing the project documentation/routes, available on port 5000;
 
 ## Testing
 

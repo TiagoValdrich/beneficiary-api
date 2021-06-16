@@ -1,0 +1,6 @@
+const BENEFICIARY_DOCUMENT_TYPES = {
+  CPF: "CPF",
+  CNPJ: "CNPJ",
+};
+
+module.exports = BENEFICIARY_DOCUMENT_TYPES;

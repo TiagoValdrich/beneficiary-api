@@ -11,7 +11,7 @@ describe("Testing bearer authentication", () => {
   test("GET with bearer token, should return status 200", async () => {
     const resp = await supertest(app)
       .get("/")
-      .set("Authorization", "Bearer test_token");
+      .set("Authorization", `Bearer ${process.env.AUTH_TOKEN}`);
     expect(resp.statusCode).toBe(200);
   });
 });

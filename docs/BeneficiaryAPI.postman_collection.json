@@ -1,0 +1,1441 @@
+{
+  "info": {
+    "_postman_id": "20fbb9f6-2126-4262-a0e6-b68ef0689b32",
+    "name": "Beneficiary API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "bank",
+      "item": [
+        {
+          "name": "Create Bank",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"BANCO_DO_BRASIL\",\n    \"name\": \"Banco do Brasil (001)\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/bank",
+              "host": ["{{URL}}"],
+              "path": ["bank"]
+            }
+          },
+          "response": [
+            {
+              "name": "Create Bank",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"id\": \"BANCO_DO_BRASIL\",\n    \"name\": \"Banco do Brasil (001)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{URL}}/bank",
+                  "host": ["{{URL}}"],
+                  "path": ["bank"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "7"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 13 Jun 2021 14:55:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "Created"
+            }
+          ]
+        },
+        {
+          "name": "Get banks",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/banks",
+              "host": ["{{URL}}"],
+              "path": ["banks"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get banks",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/banks",
+                  "host": ["{{URL}}"],
+                  "path": ["banks"]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "Get bank",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/bank/:id",
+              "host": ["{{URL}}"],
+              "path": ["bank", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "BANCO_DO_BRASIL"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get bank",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/bank/:id",
+                  "host": ["{{URL}}"],
+                  "path": ["bank", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "BANCO_DO_BRASIL"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-62S4geMD88SzlDOzhmLt/6CXp5I\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 13 Jun 2021 14:59:56 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"BANCO_DO_BRASIL\",\n    \"name\": \"Banco do Brasil (001)\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Bank",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Banco do Brasil\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/bank/:id",
+              "host": ["{{URL}}"],
+              "path": ["bank", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "BANCO_DO_BRASIL"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Bank",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Banco do Brasil\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{URL}}/bank/:id",
+                  "host": ["{{URL}}"],
+                  "path": ["bank", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "BANCO_DO_BRASIL"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 13 Jun 2021 15:01:47 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "OK"
+            }
+          ]
+        },
+        {
+          "name": "Delete Bank",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/bank/:id",
+              "host": ["{{URL}}"],
+              "path": ["bank", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "BANCO_DO_BRASIL"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete Bank",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/bank/:id",
+                  "host": ["{{URL}}"],
+                  "path": ["bank", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "BANCO_DO_BRASIL"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 13 Jun 2021 15:03:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "OK"
+            }
+          ]
+        },
+        {
+          "name": "Get account types",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/bank/:id/accountTypes",
+              "host": ["{{URL}}"],
+              "path": ["bank", ":id", "accountTypes"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "BANCO_DO_BRASIL"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get account types",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/bank/:id/accountTypes",
+                  "host": ["{{URL}}"],
+                  "path": ["bank", ":id", "accountTypes"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "BANCO_DO_BRASIL"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "58"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3a-d6Ft+Ym1pm62zkh3P2w5ElHDArI\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 15 Jun 2021 01:20:54 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"type\": \"CONTA_CORRENTE\",\n        \"name\": \"Conta corrente\"\n    }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bankAccountType",
+      "item": [
+        {
+          "name": "Get bank account types",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/bankAccountTypes",
+              "host": ["{{URL}}"],
+              "path": ["bankAccountTypes"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get bank account type",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/bankAccountTypes",
+                  "host": ["{{URL}}"],
+                  "path": ["bankAccountTypes"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 14 Jun 2021 00:00:39 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Get bank account type",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/bankAccountType/:id",
+              "host": ["{{URL}}"],
+              "path": ["bankAccountType", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get bank account type",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/bankAccountType/:id",
+                  "host": ["{{URL}}"],
+                  "path": ["bankAccountType", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "114"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"72-2YCm1G+B0PrX4yvOz+6NDOtRVqU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 14 Jun 2021 00:21:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"type\": \"CONTA_FACIl\",\n    \"name\": \"Conta Fácil\",\n    \"Bank\": {\n        \"id\": \"BANCO_DO_BRASIL\",\n        \"name\": \"Banco do Brasil (001)\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create bank account type",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"CONTA_CORRENTE\",\n    \"bankId\": \"BANCO_DO_BRASIL\",\n    \"name\": \"Conta corrente\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/bankAccountType",
+              "host": ["{{URL}}"],
+              "path": ["bankAccountType"]
+            }
+          },
+          "response": [
+            {
+              "name": "Create bank account type",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"type\": \"CONTA_CORRENTE\",\n    \"bankId\": \"BANCO_DO_BRASIL\",\n    \"name\": \"Conta corrente\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{URL}}/bankAccountType",
+                  "host": ["{{URL}}"],
+                  "path": ["bankAccountType"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "7"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 14 Jun 2021 00:15:45 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "Created"
+            }
+          ]
+        },
+        {
+          "name": "Update bank account type",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"CONTA_FACIl\",\n    \"name\": \"Conta Fácil\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/bankAccountType/:id",
+              "host": ["{{URL}}"],
+              "path": ["bankAccountType", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update bank account type",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"type\": \"CONTA_FACIl\",\n    \"name\": \"Conta Fácil\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{URL}}/bankAccountType/1",
+                  "host": ["{{URL}}"],
+                  "path": ["bankAccountType", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 14 Jun 2021 00:20:53 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "OK"
+            }
+          ]
+        },
+        {
+          "name": "Delete bank account type",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/bankAccountType/:id",
+              "host": ["{{URL}}"],
+              "path": ["bankAccountType", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete bank account type",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/bankAccountType/1",
+                  "host": ["{{URL}}"],
+                  "path": ["bankAccountType", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 14 Jun 2021 00:22:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "OK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "beneficiary",
+      "item": [
+        {
+          "name": "Create beneficiary",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Ronaldo Silva Pereira\",\n    \"email\": \"ronaldo.pereira@gmail.com\",\n    \"document\": \"53902371021\",\n    \"documentType\": \"CPF\",\n    \"agencyNumber\": \"0001\",\n    \"agencyDigit\": null,\n    \"accountNumber\": \"123456\",\n    \"accountDigit\": \"1\",\n    \"bankId\": \"BANCO_DO_BRASIL\",\n    \"bankAccountTypeId\": \"1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/beneficiary",
+              "host": ["{{URL}}"],
+              "path": ["beneficiary"]
+            }
+          },
+          "response": [
+            {
+              "name": "Create beneficiary",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Ronaldo Silva Pereira\",\n    \"email\": \"ronaldo.pereira@gmail.com\",\n    \"document\": \"53902371021\",\n    \"documentType\": \"CPF\",\n    \"agencyNumber\": \"0001\",\n    \"agencyDigit\": null,\n    \"accountNumber\": \"123456\",\n    \"accountDigit\": \"1\",\n    \"bankId\": \"BANCO_DO_BRASIL\",\n    \"bankAccountTypeId\": \"1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{URL}}/beneficiary",
+                  "host": ["{{URL}}"],
+                  "path": ["beneficiary"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d-GGmU6l5RP/YWQCikGcRjdt7mmE4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 15 Jun 2021 01:30:43 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"ece42f82-48d6-4eda-b6f6-ed2be7186189\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get beneficiaries",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/beneficiaries?searchValue=Ronaldo&page=1",
+              "host": ["{{URL}}"],
+              "path": ["beneficiaries"],
+              "query": [
+                {
+                  "key": "searchValue",
+                  "value": "Ronaldo"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get beneficiaries",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/beneficiaries?searchValue=Ronaldo&page=1",
+                  "host": ["{{URL}}"],
+                  "path": ["beneficiaries"],
+                  "query": [
+                    {
+                      "key": "searchValue",
+                      "value": "Ronaldo"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "709"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2c5-oZZD6yFFu75TID0oeUYwuexOPv0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 15 Jun 2021 03:26:17 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"ece42f82-48d6-4eda-b6f6-ed2be7186189\",\n        \"name\": \"Ronaldo Silva Pereira\",\n        \"email\": \"ronaldo.pereira@gmail.com\",\n        \"document\": \"53902371021\",\n        \"documentType\": \"CPF\",\n        \"status\": \"DRAFT\",\n        \"agencyNumber\": \"0001\",\n        \"agencyDigit\": null,\n        \"accountNumber\": \"123456\",\n        \"accountDigit\": \"1\",\n        \"createdAt\": \"2021-06-15T01:30:43.000Z\",\n        \"updatedAt\": \"2021-06-15T01:30:43.000Z\",\n        \"bankId\": \"BANCO_DO_BRASIL\",\n        \"bankAccountTypeId\": 1,\n        \"Bank\": {\n            \"id\": \"BANCO_DO_BRASIL\",\n            \"name\": \"Banco do Brasil (001)\",\n            \"createdAt\": \"2021-06-15T01:19:34.000Z\",\n            \"updatedAt\": \"2021-06-15T01:19:34.000Z\"\n        },\n        \"BankAccountType\": {\n            \"id\": 1,\n            \"type\": \"CONTA_CORRENTE\",\n            \"name\": \"Conta corrente\",\n            \"createdAt\": \"2021-06-15T01:19:50.000Z\",\n            \"updatedAt\": \"2021-06-15T01:19:50.000Z\",\n            \"bankId\": \"BANCO_DO_BRASIL\"\n        }\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get beneficiary",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/beneficiary/:id",
+              "host": ["{{URL}}"],
+              "path": ["beneficiary", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "350528aa-f97a-4acd-8e57-d9e2abd16951"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get beneficiary",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{URL}}/beneficiary/:id",
+                  "host": ["{{URL}}"],
+                  "path": ["beneficiary", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "350528aa-f97a-4acd-8e57-d9e2abd16951"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "386"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"182-y3J+p4fQPTmjLYT0TpAShmTGadk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 15 Jun 2021 23:09:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"350528aa-f97a-4acd-8e57-d9e2abd16951\",\n    \"name\": \"Ronaldo Silva Pereira\",\n    \"email\": \"ronaldo.pereira@gmail.com\",\n    \"document\": \"53902371021\",\n    \"documentType\": \"CPF\",\n    \"status\": \"DRAFT\",\n    \"agencyNumber\": \"0001\",\n    \"agencyDigit\": null,\n    \"accountNumber\": \"123456\",\n    \"accountDigit\": \"1\",\n    \"createdAt\": \"2021-06-15T23:09:03.000Z\",\n    \"updatedAt\": \"2021-06-15T23:09:03.000Z\",\n    \"bankId\": \"BANCO_DO_BRASIL\",\n    \"bankAccountTypeId\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update beneficiary",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Rolandinho Fernandes\",\n    \"email\": \"rolandinho@gmail.com\",\n    \"documentType\": \"CNPJ\",\n    \"document\": \"88960753000190\",\n    \"agencyNumber\": \"0009\",\n    \"agencyDigit\": null,\n    \"accountNumber\": \"098765\",\n    \"accountDigit\": \"2\",\n    \"bankId\": null,\n    \"bankAccountTypeId\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/beneficiary/:id",
+              "host": ["{{URL}}"],
+              "path": ["beneficiary", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "350528aa-f97a-4acd-8e57-d9e2abd16951"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update beneficiary",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Rolandinho Fernandes\",\n    \"email\": \"rolandinho@gmail.com\",\n    \"documentType\": \"CNPJ\",\n    \"document\": \"88960753000190\",\n    \"agencyNumber\": \"0009\",\n    \"agencyDigit\": null,\n    \"accountNumber\": \"098765\",\n    \"accountDigit\": \"2\",\n    \"bankId\": null,\n    \"bankAccountTypeId\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{URL}}/beneficiary/:id",
+                  "host": ["{{URL}}"],
+                  "path": ["beneficiary", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "ece42f82-48d6-4eda-b6f6-ed2be7186189"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 15 Jun 2021 22:24:50 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "OK"
+            }
+          ]
+        },
+        {
+          "name": "Batch delete beneficiaries",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ids\": [\"ece42f82-48d6-4eda-b6f6-ed2be7186189\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/beneficiaries",
+              "host": ["{{URL}}"],
+              "path": ["beneficiaries"]
+            }
+          },
+          "response": [
+            {
+              "name": "Batch delete beneficiaries",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"ids\": [\"ece42f82-48d6-4eda-b6f6-ed2be7186189\"]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{URL}}/beneficiaries",
+                  "host": ["{{URL}}"],
+                  "path": ["beneficiaries"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 15 Jun 2021 22:41:32 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "OK"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "URL",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "bearer_token",
+      "value": "test_token"
+    }
+  ]
+}

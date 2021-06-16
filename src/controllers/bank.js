@@ -1,5 +1,3 @@
-const { Op } = require("sequelize");
-
 const Bank = require("../models/bank");
 const BankAccountType = require("../models/bankAccountType");
 
@@ -16,7 +14,7 @@ module.exports = {
   },
   getBank: async (req, res) => {
     try {
-      const bankId = req.params?.id;
+      const bankId = req.params.id;
 
       const bank = await Bank.findByPk(bankId, { attributes: ["id", "name"] });
 
@@ -32,7 +30,7 @@ module.exports = {
   },
   getAccountTypes: async (req, res) => {
     try {
-      const bankId = req.params?.id;
+      const bankId = req.params.id;
 
       const bank = await Bank.findByPk(bankId, {
         attributes: ["id", "name"],
@@ -47,7 +45,7 @@ module.exports = {
         return res.sendStatus(404);
       }
 
-      return res.status(200).json(bank.BankAccountTypes || []);
+      return res.status(200).json(bank.BankAccountTypes);
     } catch (e) {
       console.error("[BANK] Unexpected error fetching bank account types", e);
       return res.sendStatus(500);
@@ -57,10 +55,6 @@ module.exports = {
     try {
       const body = req.body;
       const reqFields = ["id", "name"];
-
-      if (!body) {
-        return res.status(400).send("Missing body parameters");
-      }
 
       if (body.id && (await Bank.findByPk(body.id))) {
         return res.status(400).send("Bank already exists!");
@@ -87,7 +81,7 @@ module.exports = {
   },
   updateBank: async (req, res) => {
     try {
-      const bankId = req.params?.id;
+      const bankId = req.params.id;
       const body = req.body;
 
       const bank = await Bank.findByPk(bankId);
@@ -108,7 +102,7 @@ module.exports = {
   },
   deleteBank: async (req, res) => {
     try {
-      const bankId = req.params?.id;
+      const bankId = req.params.id;
 
       const bank = await Bank.findByPk(bankId);
 

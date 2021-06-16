@@ -12,7 +12,6 @@ class BankAccountType extends Model {
         type: {
           type: DataTypes.STRING,
           allowNull: false,
-          unique: true,
         },
         name: {
           type: DataTypes.STRING,
@@ -29,10 +28,10 @@ class BankAccountType extends Model {
 
   static associate(models) {
     this.belongsTo(models.Bank, {
-      foreignKey: { name: "bank_id", allowNull: false },
+      foreignKey: { name: "bankId", allowNull: false },
     });
     this.hasMany(models.Beneficiary, {
-      foreignKey: { name: "bank_account_type_id", allowNull: false },
+      foreignKey: { name: "bankAccountTypeId", allowNull: false },
     });
   }
 }

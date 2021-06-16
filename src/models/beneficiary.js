@@ -1,7 +1,7 @@
 const uuid = require("uuid");
 const { DataTypes, Model } = require("sequelize");
 
-const BENEFICIARY_TYPES = require("../enums/beneficiaryTypes");
+const BENEFICIARY_DOCUMENT_TYPES = require("../enums/beneficiaryDocumentTypes");
 const BENEFICIARY_STATUS = require("../enums/beneficiaryStatus");
 
 class Beneficiary extends Model {
@@ -20,17 +20,16 @@ class Beneficiary extends Model {
         email: {
           type: DataTypes.STRING,
           allowNull: false,
-          unique: true,
         },
-        identifier: {
+        document: {
           type: DataTypes.STRING,
           allowNull: false,
           comment: "Beneficiary CNPJ or CPF number",
           unique: true,
         },
-        type: {
+        documentType: {
           type: DataTypes.ENUM,
-          values: Object.values(BENEFICIARY_TYPES),
+          values: Object.values(BENEFICIARY_DOCUMENT_TYPES),
           allowNull: false,
         },
         status: {
@@ -39,20 +38,21 @@ class Beneficiary extends Model {
           allowNull: false,
           defaultValue: BENEFICIARY_STATUS.DRAFT,
         },
-        agency: {
-          type: DataTypes.INTEGER,
+        agencyNumber: {
+          type: DataTypes.STRING,
           allowNull: false,
         },
-        agency_digit: {
-          type: DataTypes.SMALLINT,
+        agencyDigit: {
+          type: DataTypes.STRING(1),
           allowNull: true,
         },
-        account_number: {
-          type: DataTypes.INTEGER,
+        accountNumber: {
+          type: DataTypes.STRING,
           allowNull: false,
         },
-        account_digit: {
-          type: DataTypes.SMALLINT,
+        accountDigit: {
+          type: DataTypes.STRING(1),
+          length: 1,
           allowNull: false,
         },
       },
@@ -62,23 +62,27 @@ class Beneficiary extends Model {
         timestamps: true,
         indexes: [
           {
-            fields: ["name", "agency"],
+            fields: ["name", "document", "agencyNumber"],
           },
         ],
       }
     );
 
-    this.beforeCreate((beneficiary, _) => {
-      return (beneficiary.id = uuid.v4());
+    this.beforeValidate("id", async (beneficiary, _) => {
+      if (!beneficiary.id) {
+        beneficiary.id = uuid.v4();
+      }
+
+      return beneficiary;
     });
   }
 
   static associate(models) {
     this.belongsTo(models.Bank, {
-      foreignKey: { name: "bank_id", allowNull: false },
+      foreignKey: { name: "bankId", allowNull: false },
     });
     this.belongsTo(models.BankAccountType, {
-      foreignKey: { name: "bank_account_type_id", allowNull: false },
+      foreignKey: { name: "bankAccountTypeId", allowNull: false },
     });
   }
 }

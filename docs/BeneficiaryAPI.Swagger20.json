@@ -1,0 +1,1687 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Beneficiary API",
+    "contact": {}
+  },
+  "host": "app:3000",
+  "basePath": "/",
+  "securityDefinitions": {},
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/bank": {
+      "post": {
+        "summary": "Create Bank",
+        "tags": ["bank"],
+        "operationId": "CreateBank",
+        "deprecated": false,
+        "produces": ["text/plain; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateBankRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain; charset=utf-8": "Created"
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "7"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sun, 13 Jun 2021 14:55:31 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/banks": {
+      "get": {
+        "summary": "Get banks",
+        "tags": ["bank"],
+        "operationId": "Getbanks",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/bank/{id}": {
+      "get": {
+        "summary": "Get bank",
+        "tags": ["bank"],
+        "operationId": "Getbank",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Getbank"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "id": "BANCO_DO_BRASIL",
+                "name": "Banco do Brasil (001)"
+              }
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "55"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"37-62S4geMD88SzlDOzhmLt/6CXp5I\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sun, 13 Jun 2021 14:59:56 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Bank",
+        "tags": ["bank"],
+        "operationId": "UpdateBank",
+        "deprecated": false,
+        "produces": ["text/plain; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdateBankRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain; charset=utf-8": "OK"
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "2"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sun, 13 Jun 2021 15:01:47 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Bank",
+        "tags": ["bank"],
+        "operationId": "DeleteBank",
+        "deprecated": false,
+        "produces": ["text/plain; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain; charset=utf-8": "OK"
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "2"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sun, 13 Jun 2021 15:03:41 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank/{id}/accountTypes": {
+      "get": {
+        "summary": "Get account types",
+        "tags": ["bank"],
+        "operationId": "Getaccounttypes",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Getaccounttype"
+              }
+            },
+            "examples": {
+              "application/json; charset=utf-8": [
+                {
+                  "id": 1,
+                  "type": "CONTA_CORRENTE",
+                  "name": "Conta corrente"
+                }
+              ]
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "58"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"3a-d6Ft+Ym1pm62zkh3P2w5ElHDArI\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Tue, 15 Jun 2021 01:20:54 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankAccountTypes": {
+      "get": {
+        "summary": "Get bank account types",
+        "tags": ["bankAccountType"],
+        "operationId": "Getbankaccounttypes",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "examples": {
+              "application/json; charset=utf-8": []
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "2"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Mon, 14 Jun 2021 00:00:39 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankAccountType/{id}": {
+      "get": {
+        "summary": "Get bank account type",
+        "tags": ["bankAccountType"],
+        "operationId": "Getbankaccounttype",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Getbankaccounttype"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "id": 1,
+                "type": "CONTA_FACIl",
+                "name": "Conta Fácil",
+                "Bank": {
+                  "id": "BANCO_DO_BRASIL",
+                  "name": "Banco do Brasil (001)"
+                }
+              }
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "114"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"72-2YCm1G+B0PrX4yvOz+6NDOtRVqU\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Mon, 14 Jun 2021 00:21:16 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update bank account type",
+        "tags": ["bankAccountType"],
+        "operationId": "Updatebankaccounttype",
+        "deprecated": false,
+        "produces": ["text/plain; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdatebankaccounttypeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain; charset=utf-8": "OK"
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "2"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Mon, 14 Jun 2021 00:20:53 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete bank account type",
+        "tags": ["bankAccountType"],
+        "operationId": "Deletebankaccounttype",
+        "deprecated": false,
+        "produces": ["text/plain; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain; charset=utf-8": "OK"
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "2"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Mon, 14 Jun 2021 00:22:13 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankAccountType": {
+      "post": {
+        "summary": "Create bank account type",
+        "tags": ["bankAccountType"],
+        "operationId": "Createbankaccounttype",
+        "deprecated": false,
+        "produces": ["text/plain; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreatebankaccounttypeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain; charset=utf-8": "Created"
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "7"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Mon, 14 Jun 2021 00:15:45 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficiary": {
+      "post": {
+        "summary": "Create beneficiary",
+        "tags": ["beneficiary"],
+        "operationId": "Createbeneficiary",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreatebeneficiaryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Createbeneficiary"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "id": "ece42f82-48d6-4eda-b6f6-ed2be7186189"
+              }
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "45"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2d-GGmU6l5RP/YWQCikGcRjdt7mmE4\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Tue, 15 Jun 2021 01:30:43 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficiaries": {
+      "get": {
+        "summary": "Get beneficiaries",
+        "tags": ["beneficiary"],
+        "operationId": "Getbeneficiaries",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "searchValue",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Getbeneficiary"
+              }
+            },
+            "examples": {
+              "application/json; charset=utf-8": [
+                {
+                  "id": "ece42f82-48d6-4eda-b6f6-ed2be7186189",
+                  "name": "Ronaldo Silva Pereira",
+                  "email": "ronaldo.pereira@gmail.com",
+                  "document": "53902371021",
+                  "documentType": "CPF",
+                  "status": "DRAFT",
+                  "agencyNumber": "0001",
+                  "agencyDigit": null,
+                  "accountNumber": "123456",
+                  "accountDigit": "1",
+                  "createdAt": "2021-06-15T01:30:43Z",
+                  "updatedAt": "2021-06-15T01:30:43Z",
+                  "bankId": "BANCO_DO_BRASIL",
+                  "bankAccountTypeId": 1,
+                  "Bank": {
+                    "id": "BANCO_DO_BRASIL",
+                    "name": "Banco do Brasil (001)",
+                    "createdAt": "2021-06-15T01:19:34Z",
+                    "updatedAt": "2021-06-15T01:19:34Z"
+                  },
+                  "BankAccountType": {
+                    "id": 1,
+                    "type": "CONTA_CORRENTE",
+                    "name": "Conta corrente",
+                    "createdAt": "2021-06-15T01:19:50Z",
+                    "updatedAt": "2021-06-15T01:19:50Z",
+                    "bankId": "BANCO_DO_BRASIL"
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "709"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2c5-oZZD6yFFu75TID0oeUYwuexOPv0\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Tue, 15 Jun 2021 03:26:17 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Batch delete beneficiaries",
+        "tags": ["beneficiary"],
+        "operationId": "Batchdeletebeneficiaries",
+        "deprecated": false,
+        "produces": ["text/plain; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BatchdeletebeneficiariesRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain; charset=utf-8": "OK"
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "2"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Tue, 15 Jun 2021 22:41:32 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficiary/{id}": {
+      "get": {
+        "summary": "Get beneficiary",
+        "tags": ["beneficiary"],
+        "operationId": "Getbeneficiary",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Getbeneficiary1"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "id": "350528aa-f97a-4acd-8e57-d9e2abd16951",
+                "name": "Ronaldo Silva Pereira",
+                "email": "ronaldo.pereira@gmail.com",
+                "document": "53902371021",
+                "documentType": "CPF",
+                "status": "DRAFT",
+                "agencyNumber": "0001",
+                "agencyDigit": null,
+                "accountNumber": "123456",
+                "accountDigit": "1",
+                "createdAt": "2021-06-15T23:09:03Z",
+                "updatedAt": "2021-06-15T23:09:03Z",
+                "bankId": "BANCO_DO_BRASIL",
+                "bankAccountTypeId": 1
+              }
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "386"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"182-y3J+p4fQPTmjLYT0TpAShmTGadk\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Tue, 15 Jun 2021 23:09:13 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update beneficiary",
+        "tags": ["beneficiary"],
+        "operationId": "Updatebeneficiary",
+        "deprecated": false,
+        "produces": ["text/plain; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdatebeneficiaryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain; charset=utf-8": "OK"
+            },
+            "headers": {
+              "X-Powered-By": {
+                "type": "string",
+                "default": "Express"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "2"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Tue, 15 Jun 2021 22:24:50 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              },
+              "Keep-Alive": {
+                "type": "string",
+                "default": "timeout=5"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateBankRequest": {
+      "title": "CreateBankRequest",
+      "example": {
+        "id": "BANCO_DO_BRASIL",
+        "name": "Banco do Brasil (001)"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"]
+    },
+    "Getbank": {
+      "title": "Getbank",
+      "example": {
+        "id": "BANCO_DO_BRASIL",
+        "name": "Banco do Brasil (001)"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"]
+    },
+    "UpdateBankRequest": {
+      "title": "UpdateBankRequest",
+      "example": {
+        "name": "Banco do Brasil"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["name"]
+    },
+    "Getaccounttype": {
+      "title": "Getaccounttype",
+      "example": {
+        "id": 1,
+        "type": "CONTA_CORRENTE",
+        "name": "Conta corrente"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "type", "name"]
+    },
+    "Getbankaccounttype": {
+      "title": "Getbankaccounttype",
+      "example": {
+        "id": 1,
+        "type": "CONTA_FACIl",
+        "name": "Conta Fácil",
+        "Bank": {
+          "id": "BANCO_DO_BRASIL",
+          "name": "Banco do Brasil (001)"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "Bank": {
+          "$ref": "#/definitions/Bank"
+        }
+      },
+      "required": ["id", "type", "name", "Bank"]
+    },
+    "Bank": {
+      "title": "Bank",
+      "example": {
+        "id": "BANCO_DO_BRASIL",
+        "name": "Banco do Brasil (001)"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"]
+    },
+    "CreatebankaccounttypeRequest": {
+      "title": "CreatebankaccounttypeRequest",
+      "example": {
+        "type": "CONTA_CORRENTE",
+        "bankId": "BANCO_DO_BRASIL",
+        "name": "Conta corrente"
+      },
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "bankId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "bankId", "name"]
+    },
+    "UpdatebankaccounttypeRequest": {
+      "title": "UpdatebankaccounttypeRequest",
+      "example": {
+        "type": "CONTA_FACIl",
+        "name": "Conta Fácil"
+      },
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "name"]
+    },
+    "CreatebeneficiaryRequest": {
+      "title": "CreatebeneficiaryRequest",
+      "example": {
+        "name": "Ronaldo Silva Pereira",
+        "email": "ronaldo.pereira@gmail.com",
+        "document": "53902371021",
+        "documentType": "CPF",
+        "agencyNumber": "0001",
+        "agencyDigit": null,
+        "accountNumber": "123456",
+        "accountDigit": "1",
+        "bankId": "BANCO_DO_BRASIL",
+        "bankAccountTypeId": "1"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "document": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "agencyNumber": {
+          "type": "string"
+        },
+        "agencyDigit": {
+          "type": "string"
+        },
+        "accountNumber": {
+          "type": "string"
+        },
+        "accountDigit": {
+          "type": "string"
+        },
+        "bankId": {
+          "type": "string"
+        },
+        "bankAccountTypeId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "document",
+        "documentType",
+        "agencyNumber",
+        "agencyDigit",
+        "accountNumber",
+        "accountDigit",
+        "bankId",
+        "bankAccountTypeId"
+      ]
+    },
+    "Createbeneficiary": {
+      "title": "Createbeneficiary",
+      "example": {
+        "id": "ece42f82-48d6-4eda-b6f6-ed2be7186189"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": ["id"]
+    },
+    "Getbeneficiary": {
+      "title": "Getbeneficiary",
+      "example": {
+        "id": "ece42f82-48d6-4eda-b6f6-ed2be7186189",
+        "name": "Ronaldo Silva Pereira",
+        "email": "ronaldo.pereira@gmail.com",
+        "document": "53902371021",
+        "documentType": "CPF",
+        "status": "DRAFT",
+        "agencyNumber": "0001",
+        "agencyDigit": null,
+        "accountNumber": "123456",
+        "accountDigit": "1",
+        "createdAt": "2021-06-15T01:30:43Z",
+        "updatedAt": "2021-06-15T01:30:43Z",
+        "bankId": "BANCO_DO_BRASIL",
+        "bankAccountTypeId": 1,
+        "Bank": {
+          "id": "BANCO_DO_BRASIL",
+          "name": "Banco do Brasil (001)",
+          "createdAt": "2021-06-15T01:19:34Z",
+          "updatedAt": "2021-06-15T01:19:34Z"
+        },
+        "BankAccountType": {
+          "id": 1,
+          "type": "CONTA_CORRENTE",
+          "name": "Conta corrente",
+          "createdAt": "2021-06-15T01:19:50Z",
+          "updatedAt": "2021-06-15T01:19:50Z",
+          "bankId": "BANCO_DO_BRASIL"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "document": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "agencyNumber": {
+          "type": "string"
+        },
+        "agencyDigit": {
+          "type": "string"
+        },
+        "accountNumber": {
+          "type": "string"
+        },
+        "accountDigit": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "bankId": {
+          "type": "string"
+        },
+        "bankAccountTypeId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Bank": {
+          "$ref": "#/definitions/Bank1"
+        },
+        "BankAccountType": {
+          "$ref": "#/definitions/BankAccountType"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "document",
+        "documentType",
+        "status",
+        "agencyNumber",
+        "agencyDigit",
+        "accountNumber",
+        "accountDigit",
+        "createdAt",
+        "updatedAt",
+        "bankId",
+        "bankAccountTypeId",
+        "Bank",
+        "BankAccountType"
+      ]
+    },
+    "Bank1": {
+      "title": "Bank1",
+      "example": {
+        "id": "BANCO_DO_BRASIL",
+        "name": "Banco do Brasil (001)",
+        "createdAt": "2021-06-15T01:19:34Z",
+        "updatedAt": "2021-06-15T01:19:34Z"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name", "createdAt", "updatedAt"]
+    },
+    "BankAccountType": {
+      "title": "BankAccountType",
+      "example": {
+        "id": 1,
+        "type": "CONTA_CORRENTE",
+        "name": "Conta corrente",
+        "createdAt": "2021-06-15T01:19:50Z",
+        "updatedAt": "2021-06-15T01:19:50Z",
+        "bankId": "BANCO_DO_BRASIL"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "bankId": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "type", "name", "createdAt", "updatedAt", "bankId"]
+    },
+    "Getbeneficiary1": {
+      "title": "Getbeneficiary1",
+      "example": {
+        "id": "350528aa-f97a-4acd-8e57-d9e2abd16951",
+        "name": "Ronaldo Silva Pereira",
+        "email": "ronaldo.pereira@gmail.com",
+        "document": "53902371021",
+        "documentType": "CPF",
+        "status": "DRAFT",
+        "agencyNumber": "0001",
+        "agencyDigit": null,
+        "accountNumber": "123456",
+        "accountDigit": "1",
+        "createdAt": "2021-06-15T23:09:03Z",
+        "updatedAt": "2021-06-15T23:09:03Z",
+        "bankId": "BANCO_DO_BRASIL",
+        "bankAccountTypeId": 1
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "document": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "agencyNumber": {
+          "type": "string"
+        },
+        "agencyDigit": {
+          "type": "string"
+        },
+        "accountNumber": {
+          "type": "string"
+        },
+        "accountDigit": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "bankId": {
+          "type": "string"
+        },
+        "bankAccountTypeId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "document",
+        "documentType",
+        "status",
+        "agencyNumber",
+        "agencyDigit",
+        "accountNumber",
+        "accountDigit",
+        "createdAt",
+        "updatedAt",
+        "bankId",
+        "bankAccountTypeId"
+      ]
+    },
+    "UpdatebeneficiaryRequest": {
+      "title": "UpdatebeneficiaryRequest",
+      "example": {
+        "name": "Rolandinho Fernandes",
+        "email": "rolandinho@gmail.com",
+        "documentType": "CNPJ",
+        "document": "88960753000190",
+        "agencyNumber": "0009",
+        "agencyDigit": null,
+        "accountNumber": "098765",
+        "accountDigit": "2",
+        "bankId": null,
+        "bankAccountTypeId": null
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "document": {
+          "type": "string"
+        },
+        "agencyNumber": {
+          "type": "string"
+        },
+        "agencyDigit": {
+          "type": "string"
+        },
+        "accountNumber": {
+          "type": "string"
+        },
+        "accountDigit": {
+          "type": "string"
+        },
+        "bankId": {
+          "type": "string"
+        },
+        "bankAccountTypeId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "documentType",
+        "document",
+        "agencyNumber",
+        "agencyDigit",
+        "accountNumber",
+        "accountDigit",
+        "bankId",
+        "bankAccountTypeId"
+      ]
+    },
+    "BatchdeletebeneficiariesRequest": {
+      "title": "BatchdeletebeneficiariesRequest",
+      "example": {
+        "ids": ["ece42f82-48d6-4eda-b6f6-ed2be7186189"]
+      },
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["ids"]
+    }
+  },
+  "tags": [
+    {
+      "name": "bank"
+    },
+    {
+      "name": "bankAccountType"
+    },
+    {
+      "name": "beneficiary"
+    }
+  ]
+}

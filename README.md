@@ -77,7 +77,7 @@ This compose will setup 3 containers:
 
 ## Testing
 
-For running test and check the project coverage, run the following command:
+For running tests and check the coverage, run the following command:
 
 > **Observation**: For running tests you also need to have a MySQL running on your local environment!
 

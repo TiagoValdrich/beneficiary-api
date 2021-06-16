@@ -17,6 +17,8 @@ services:
       - "MYSQL_DATABASE=dev_test"
   app:
     image: beneficiary-api:test
+    depends_on:
+      - "mysql"
     ports:
       - "3000:3000"
     environment:
@@ -26,3 +28,4 @@ services:
       - "DB_HOST=mysql"
       - "DB_PORT=3306"
       - "AUTH_TOKEN=test_token"
+      - "DATABASE_DELAY=15000"

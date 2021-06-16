@@ -815,14 +815,14 @@
           {
             "name": "searchValue",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string",
             "description": ""
           },
           {
             "name": "page",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "integer",
             "format": "int32",
             "description": ""

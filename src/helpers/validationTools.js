@@ -143,7 +143,7 @@ const validateDocument = (type, document) => {
   }
 
   if (type === "CNPJ" && !cnpj.isValid(document)) {
-    return { valid: true, reason: "Invalid CNPJ" };
+    return { valid: false, reason: "Invalid CNPJ" };
   }
 
   return { valid: true, reason: null };

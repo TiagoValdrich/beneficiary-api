@@ -1,5 +1,3 @@
-const { Op } = require("sequelize");
-
 const Bank = require("../models/bank");
 const BankAccountType = require("../models/bankAccountType");
 
@@ -57,10 +55,6 @@ module.exports = {
     try {
       const body = req.body;
       const reqFields = ["id", "name"];
-
-      if (!body) {
-        return res.status(400).send("Missing body parameters");
-      }
 
       if (body.id && (await Bank.findByPk(body.id))) {
         return res.status(400).send("Bank already exists!");

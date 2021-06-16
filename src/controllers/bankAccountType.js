@@ -56,10 +56,6 @@ module.exports = {
       const body = req.body;
       const reqFields = ["type", "name", "bankId"];
 
-      if (!body) {
-        return res.status(400).send("Missing body parameters");
-      }
-
       for (const reqField of reqFields) {
         if (!body[reqField]) {
           return res
@@ -78,6 +74,9 @@ module.exports = {
         where: {
           type: {
             [Op.eq]: body.type,
+          },
+          bankId: {
+            [Op.eq]: bank.id,
           },
         },
       });

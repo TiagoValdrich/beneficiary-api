@@ -20,7 +20,6 @@ class Beneficiary extends Model {
         email: {
           type: DataTypes.STRING,
           allowNull: false,
-          unique: true,
         },
         document: {
           type: DataTypes.STRING,

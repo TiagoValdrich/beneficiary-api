@@ -87,7 +87,10 @@ module.exports = {
         }
       }
 
-      const { valid, reason } = validationTools.validateDocument();
+      const { valid, reason } = validationTools.validateDocument(
+        body.documentType,
+        body.document
+      );
 
       if (!valid) {
         return res.status(400).send(reason);
@@ -241,6 +244,31 @@ module.exports = {
     } catch (e) {
       console.error(
         "[BENEFICIARY] An unexpected error occurred when updating beneficiary",
+        e
+      );
+      return res.sendStatus(500);
+    }
+  },
+  batchDeleteBeneficiaries: async (req, res) => {
+    try {
+      const body = req.body;
+
+      if (!body || (body && !body.ids)) {
+        return res.status(400).send("Invalid body");
+      }
+
+      await Beneficiary.destroy({
+        where: {
+          id: {
+            [Op.in]: body.ids,
+          },
+        },
+      });
+
+      return res.sendStatus(200);
+    } catch (e) {
+      console.error(
+        "[BENEFICIARY] An unexpected error occurred when batch deleting beneficiaries",
         e
       );
       return res.sendStatus(500);
